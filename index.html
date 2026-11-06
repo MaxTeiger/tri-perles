@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#d9dbe8">
+<title>Tri de perles</title>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; min-height: 100%; }
+  body {
+    background: #d9dbe8; color: #2b2d42;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    display: flex; flex-direction: column; align-items: center;
+    padding: max(12px, env(safe-area-inset-top)) 8px 24px;
+    user-select: none; -webkit-user-select: none; touch-action: manipulation;
+  }
+  h1 { margin: 6px 0 8px; font-size: 26px; color: #5b3fa6; letter-spacing: .3px; }
+  .progression { width: min(80vw, 400px); height: 20px; background: #f4f4f8; border-radius: 10px; position: relative; overflow: hidden; margin-bottom: 12px; }
+  #barre { height: 100%; width: 0; background: #5aa84a; border-radius: 10px; transition: width .3s; }
+  #pct { position: absolute; inset: 0; text-align: center; font: 600 13px/20px system-ui, sans-serif; }
+  canvas { display: block; touch-action: manipulation; }
+  .outils { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; justify-content: center; }
+  button {
+    font: 600 15px system-ui, sans-serif; border: 0; border-radius: 12px; padding: 10px 16px;
+    background: #fbfbfd; color: #2b2d42; box-shadow: 0 2px 0 #b9bbcb; cursor: pointer;
+  }
+  button:active { transform: translateY(1px); box-shadow: 0 1px 0 #b9bbcb; }
+  button:disabled { opacity: .45; }
+  #bonus { background: #f5cf4a; box-shadow: 0 2px 0 #c9a42c; }
+  .aide { max-width: 420px; font-size: 14px; line-height: 1.4; color: #555870; text-align: center; margin: 14px 8px 0; }
+  #msg { position: fixed; inset: 0; background: rgba(30, 30, 50, .45); display: flex; align-items: center; justify-content: center; }
+  #msg[hidden] { display: none; }
+  .boite { background: #fbfbfd; border-radius: 18px; padding: 22px 20px; text-align: center; width: min(86vw, 340px); }
+  #msg-texte { font-size: 19px; font-weight: 700; margin-bottom: 16px; }
+  #msg-boutons { display: flex; flex-direction: column; gap: 10px; }
+  #msg-boutons button:first-child { background: #5b3fa6; color: #fff; box-shadow: 0 2px 0 #3e2a78; }
+</style>
+</head>
+<body>
+  <h1 id="titre">Tri de perles</h1>
+  <div class="progression"><div id="barre"></div><div id="pct">0 %</div></div>
+  <canvas id="jeu"></canvas>
+  <div class="outils">
+    <button id="precedent">◀ Niveau précédent</button>
+    <button id="recommencer">↺ Recommencer</button>
+    <button id="bonus">+1 emplacement</button>
+  </div>
+  <p class="aide">Touche une zone encadrée : ses perles qui ne sont pas sur le bon fond descendent dans les emplacements (9 perles d'une même couleur chacun), puis rejoignent seules les cases vides de leur couleur. Choisis bien l'ordre : si les emplacements sont pleins, c'est perdu. Un emplacement bonus par niveau.</p>
+  <div id="msg" hidden><div class="boite"><div id="msg-texte"></div><div id="msg-boutons"></div></div></div>
+  <script src="game.js"></script>
+</body>
+</html>
